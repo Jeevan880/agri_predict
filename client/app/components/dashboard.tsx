@@ -1,5 +1,5 @@
 import React, { useState, type ReactNode } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, MenuItem, Tooltip } from "@mui/material";
@@ -34,7 +34,7 @@ const Dashboard: React.FC<{ children?: ReactNode }> = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.reducer.currentUser);
   const userLoading = useSelector((state: any) => state.reducer.userLoading);
-  
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -62,7 +62,7 @@ const Dashboard: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return (
     <div className="min-h-screen font-sans text-white bg-[#020804]">
       {/* --- TOP NAVIGATION --- */}
-      <motion.header 
+      <motion.header
         className="flex justify-between items-center h-16 px-4 md:px-8 bg-black/40 backdrop-blur-xl border-b border-green-900/30 sticky top-0 z-50"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -82,7 +82,7 @@ const Dashboard: React.FC<{ children?: ReactNode }> = ({ children }) => {
               <p className="text-xs font-bold text-white leading-none">{user?.name}</p>
               <p className="text-[10px] text-green-500 font-medium">Verified Farmer</p>
             </div>
-            <div 
+            <div
               className="h-9 w-9 rounded-full border-2 border-green-500/50 overflow-hidden cursor-pointer"
               onClick={handleMenuOpen}
             >
@@ -132,7 +132,7 @@ const Dashboard: React.FC<{ children?: ReactNode }> = ({ children }) => {
           animate={{ width: isSidebarCollapsed ? 80 : 260 }}
         >
           <div className="p-4 flex flex-col h-full">
-            <button 
+            <button
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
               className="mb-6 self-end p-1.5 hover:bg-white/5 rounded-lg text-gray-500 hover:text-green-500 transition"
             >

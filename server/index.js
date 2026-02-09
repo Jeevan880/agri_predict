@@ -7,6 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 // import EmailRouter from "./router/email.js";
 import UserRouter from "./router/user.router.js";
+import ChatRouter from "./router/chat.js";
 import http from "http";
 // import admin from "firebase-admin";
 import fs from "fs";
@@ -49,6 +50,7 @@ app.get("/", (req, res) => {
 
 // app.use("/api", EmailRouter);
 app.use("/api/user", UserRouter);
+app.use("/api/chat", ChatRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI, { dbName: "clone1" })

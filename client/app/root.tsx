@@ -16,6 +16,7 @@ import "./app.css";
 import ReduxProvider from "./redux/reduxProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import IleanaChat from "./components/IleanaChat";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -93,35 +94,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
 //       <Outlet />
 //     </>
 //   );
-  
+
 // }
 
 // 1. Create a separate component for your logic
 
-function AppContent() {
+export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    if (userId) {
-      if (!window.location.pathname.startsWith("/dashboard")) {
-        navigate("/dashboard");
-      }
+    // Only redirect to dashboard if user is logged in and currently on the root page
+    if (userId && window.location.pathname === "/") {
+      navigate("/dashboard");
       dispatch(getUser(userId));
-    } else {
-      if (window.location.pathname !== "/") navigate("/");
+    } else if (userId) {
+      // Ensure user data is loaded if they are logged in but on another page (e.g. refresh)
+      dispatch(getUser(userId));
     }
   }, [dispatch, navigate]);
 
-  return <Outlet />;
-}
-
-export default function App() {
   return (
     <>
       <Toaster position="top-right" />
-      <AppContent />
+      <Outlet />
+      <IleanaChat />
     </>
   );
 }
