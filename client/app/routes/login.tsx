@@ -7,7 +7,6 @@ import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-// import { getUser } from "~/redux/actions";
 
 // Icons
 import { 

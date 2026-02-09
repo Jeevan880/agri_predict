@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-// import EmailRouter from "./router/email.js";
+import EmailRouter from "./router/email.js";
 import UserRouter from "./router/user.router.js";
 import http from "http";
 // import admin from "firebase-admin";
@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Crop recommedaton project");
 });
 
-// app.use("/api", EmailRouter);
+app.use("/api", EmailRouter);
 app.use("/api/user", UserRouter);
 
 mongoose

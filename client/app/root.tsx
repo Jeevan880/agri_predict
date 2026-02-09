@@ -52,79 +52,50 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// export default function App() {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const user = useSelector((state) => state.reducer.currentUser);
-
-//   useEffect(() => {
-//     const userId = localStorage.getItem("userId");
-//     if (userId) {
-//       navigate("/dashboard");
-//       dispatch(getUser(userId));
-//     } else {
-//       navigate("/");
-//     }
-
-//     // const script = document.createElement("script");
-//     // script.src = "https://checkout.razorpay.com/v1/checkout.js";
-//     // script.async = true;
-//     // document.body.appendChild(script);
-
-//     // return () => {
-//     //   document.body.removeChild(script);
-//     // };
-//   }, [dispatch]);
-
-//    return (
-//     <>
-//       <Toaster
-//         position="top-right"
-//         toastOptions={{
-//           className:
-//             "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-//           style: {
-//             borderRadius: "8px",
-//             padding: "10px",
-//             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-//           },
-//         }}
-//       />
-//       <Outlet />
-//     </>
-//   );
-  
-// }
-
-// 1. Create a separate component for your logic
-
-function AppContent() {
+export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.reducer.currentUser);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (userId) {
-      if (!window.location.pathname.startsWith("/dashboard")) {
-        navigate("/dashboard");
-      }
+      navigate("/dashboard");
       dispatch(getUser(userId));
     } else {
-      if (window.location.pathname !== "/") navigate("/");
+      navigate("/");
     }
-  }, [dispatch, navigate]);
 
-  return <Outlet />;
-}
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
 
-export default function App() {
-  return (
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [dispatch]);
+
+   return (
     <>
-      <Toaster position="top-right" />
-      <AppContent />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className:
+            "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+          style: {
+            borderRadius: "8px",
+            padding: "10px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          },
+        }}
+      />
+      <Outlet />
     </>
   );
+  
 }
+
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
