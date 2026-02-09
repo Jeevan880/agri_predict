@@ -3,16 +3,23 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, type JwtPayload } from "jwt-decode";
+
+// Define custom JWT interface
+interface CustomJwtPayload extends JwtPayload {
+  name: string;
+  email: string;
+  picture: string;
+}
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getUser } from "~/redux/actions";
 
 // Icons
-import { 
-  Person, Email, Lock, Visibility, VisibilityOff, 
-  Agriculture, ChevronLeft, Spa 
+import {
+  Person, Email, Lock, Visibility, VisibilityOff,
+  Agriculture, ChevronLeft, Spa
 } from "@mui/icons-material";
 
 export default function Signup() {
@@ -23,7 +30,7 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,7 +42,7 @@ export default function Signup() {
     }
   }, [dispatch, navigate]);
 
-  const handleSignup = async (e) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -64,7 +71,7 @@ export default function Signup() {
         dispatch(getUser(res?.data?.user?._id));
         navigate("/dashboard");
       }
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err?.response?.data?.message || "Signup failed.");
     } finally {
       setLoading(false);
@@ -72,45 +79,45 @@ export default function Signup() {
   };
 
   const handleGoogleLogin = async (credentialResponse: any) => {
-      setLoading(true);
-      console.log("Decoded JWT:", jwtDecode(credentialResponse.credential));
-  
-      try {
-        const googleCreds = jwtDecode(credentialResponse.credential);
-        const res = await axios.post(
-          `${import.meta.env.VITE_SERVER_URL}/api/user/googleauth`,
-          {
-            name: googleCreds?.name,
-            email: googleCreds?.email,
-            password: googleCreds?.sub,
-            picture: googleCreds?.picture,
-          },
-        );
-  
-        console.log("googleauth response:", res);
-  
-        if (res.status === 200 || res.status === 201) {
-          toast.success("Signup successful!");
-          setEmail("");
-          setPassword("");
-          localStorage.setItem("userId", res?.data?.user?._id);
-          dispatch(getUser(res?.data?.user?._id));
-  
-          const redirectPath =
-            localStorage.getItem("redirectPath") || "/dashboard";
-          navigate(redirectPath);
-          localStorage.removeItem("redirectPath");
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(
-          error?.response?.data?.message ||
-            "Failed to login up. Please try again later.",
-        );
-      } finally {
-        setLoading(false);
+    setLoading(true);
+    console.log("Decoded JWT:", jwtDecode(credentialResponse.credential));
+
+    try {
+      const googleCreds = jwtDecode<CustomJwtPayload>(credentialResponse.credential);
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/user/googleauth`,
+        {
+          name: googleCreds?.name,
+          email: googleCreds?.email,
+          password: googleCreds?.sub,
+          picture: googleCreds?.picture,
+        },
+      );
+
+      console.log("googleauth response:", res);
+
+      if (res.status === 200 || res.status === 201) {
+        toast.success("Signup successful!");
+        setEmail("");
+        setPassword("");
+        localStorage.setItem("userId", res?.data?.user?._id);
+        dispatch(getUser(res?.data?.user?._id));
+
+        const redirectPath =
+          localStorage.getItem("redirectPath") || "/dashboard";
+        navigate(redirectPath);
+        localStorage.removeItem("redirectPath");
       }
-    };
+    } catch (error: any) {
+      console.log(error);
+      toast.error(
+        error?.response?.data?.message ||
+        "Failed to login up. Please try again later.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#020804] flex items-center justify-center p-4 sm:p-6 font-sans relative overflow-hidden">
@@ -118,7 +125,7 @@ export default function Signup() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-600/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/5 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl z-10"
@@ -127,24 +134,24 @@ export default function Signup() {
         <div className="hidden md:flex md:w-5/12 bg-gradient-to-br from-emerald-700 to-green-950 p-12 flex-col justify-between relative">
           <div className="relative z-10">
             <Link to="/" className="flex items-center text-white/70 hover:text-white transition mb-12 group">
-              <ChevronLeft className="group-hover:-translate-x-1 transition-transform" /> 
+              <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
               <span className="text-xs font-bold uppercase tracking-widest ml-1">Home</span>
             </Link>
             <div className="flex items-center space-x-3 mb-8">
-               <div className="p-3 bg-white rounded-2xl text-green-800">
-                  <Spa fontSize="large" />
-               </div>
-               <h2 className="text-2xl font-black tracking-tighter text-white uppercase">AgriPredict</h2>
+              <div className="p-3 bg-white rounded-2xl text-green-800">
+                <Spa fontSize="large" />
+              </div>
+              <h2 className="text-2xl font-black tracking-tighter text-white uppercase">AgriPredict</h2>
             </div>
             <h1 className="text-4xl font-extrabold text-white leading-tight">
               Start Your <br /> <span className="text-green-300">Sustainable</span> <br /> Journey.
             </h1>
           </div>
-          
+
           <div className="relative z-10 bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10">
-             <p className="text-green-50 text-sm italic">
-               "Join 12,000+ farmers using AI to optimize soil health and maximize seasonal profits."
-             </p>
+            <p className="text-green-50 text-sm italic">
+              "Join 12,000+ farmers using AI to optimize soil health and maximize seasonal profits."
+            </p>
           </div>
         </div>
 
@@ -240,10 +247,10 @@ export default function Signup() {
 
           <div className="flex justify-center">
             <div className="rounded-3xl overflow-hidden">
-                <GoogleLogin
+              <GoogleLogin
                 onSuccess={handleGoogleLogin}
                 onError={() => {
-                    toast.error("Google login failed.");
+                  toast.error("Google login failed.");
                 }}
                 width="100%"
                 theme="filled_blue"
@@ -251,9 +258,9 @@ export default function Signup() {
                 shape="rectangular"
                 logo_alignment="left"
                 auto_select={true}
-                />
+              />
             </div>
-           </div>
+          </div>
 
           <p className="mt-8 text-center text-gray-500 text-sm">
             Already have an account?{" "}

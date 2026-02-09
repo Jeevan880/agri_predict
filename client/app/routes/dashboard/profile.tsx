@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Dialog,
   DialogTitle,
@@ -11,7 +11,7 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useDropzone } from "react-dropzone";
 import { formatDistanceToNow } from "date-fns";
 import toast from "react-hot-toast";
@@ -21,17 +21,36 @@ import { updateUser, logout } from "../../redux/actions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForever from "@mui/icons-material/DeleteForever";
 import Save from "@mui/icons-material/Save";
-import Cancel from "@mui/icons-material/Cancel";
-import Agriculture from "@mui/icons-material/Agriculture";
-import CheckCircle from "@mui/icons-material/CheckCircle";
-import LockResetIcon from "@mui/icons-material/LockReset";
+import WorkspacePremium from "@mui/icons-material/WorkspacePremium";
 import Verified from "@mui/icons-material/Verified";
 import Sensors from "@mui/icons-material/Sensors";
-import WorkspacePremium from "@mui/icons-material/WorkspacePremium";
+import LockResetIcon from "@mui/icons-material/LockReset";
+
+// Define types for better type safety
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  picture: string;
+  plan: string;
+  credits: number;
+}
+
+interface ActivityItem {
+  type: "soil_analysis" | "crop_recommendation" | "market_check";
+  date: string;
+  item?: { fieldName?: string };
+}
+
+interface RootState {
+  reducer: {
+    currentUser: User | null;
+  };
+}
 
 export default function ProfilePage() {
-  const user = useSelector((state) => state.reducer.currentUser);
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.reducer.currentUser);
+  const dispatch = useDispatch<any>(); // Using any for dispatch to accommodate thunk actions temporarily
   const navigate = useNavigate();
 
   const [profileImage, setProfileImage] = useState(user?.picture || null);
@@ -42,7 +61,7 @@ export default function ProfilePage() {
     name: user?.name || "",
     email: user?.email || "",
   });
-  const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useState<ActivityItem[]>([]);
 
   // Fetch Activity Log
   useEffect(() => {
@@ -61,23 +80,23 @@ export default function ProfilePage() {
   }, [user]);
 
   // Image Upload Logic
-  const onDrop = useCallback(async (acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = async () => {
         const base64Image = reader.result;
-        setProfileImage(base64Image);
+        setProfileImage(base64Image as string);
         try {
           const res = await axios.put(
             `${import.meta.env.VITE_SERVER_URL}/api/user/update/${user?._id}`,
             { picture: base64Image }
           );
-          dispatch(updateUser(res.data.user));
+          if (dispatch) dispatch(updateUser(res.data.user));
           toast.success("Profile picture updated!");
         } catch (error) {
           toast.error("Upload failed.");
-          setProfileImage(user?.picture);
+          setProfileImage(user?.picture || null);
         }
       };
       reader.readAsDataURL(file);
@@ -91,7 +110,7 @@ export default function ProfilePage() {
   });
 
   // Update Profile Data
-  const handleEditSubmit = async (e) => {
+  const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     try {
@@ -99,7 +118,7 @@ export default function ProfilePage() {
         `${import.meta.env.VITE_SERVER_URL}/api/user/update/${user?._id}`,
         formData
       );
-      dispatch(updateUser(res.data.user));
+      if (dispatch) dispatch(updateUser(res.data.user));
       toast.success("Credentials updated!");
       setIsEditing(false);
     } catch (error) {
@@ -116,7 +135,7 @@ export default function ProfilePage() {
         `${import.meta.env.VITE_SERVER_URL}/api/user/delete/${user?._id}`
       );
       toast.success("Account permanently deleted.");
-      dispatch(logout()); // Clear Redux state
+      if (dispatch) dispatch(logout()); // Clear Redux state
       localStorage.clear(); // Clear local storage
       navigate("/"); // Redirect to landing page
     } catch (error) {
@@ -126,8 +145,8 @@ export default function ProfilePage() {
     }
   };
 
-  const renderActivityText = (item) => {
-    const typeMap = {
+  const renderActivityText = (item: ActivityItem) => {
+    const typeMap: Record<string, string> = {
       soil_analysis: "Performed soil analysis",
       crop_recommendation: "Generated AI crop strategy",
       market_check: "Checked market trends"
@@ -138,7 +157,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen font-sans text-white bg-[#020804] p-4 md:p-10">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-6xl mx-auto">
-        
+
         <header className="mb-10">
           <h1 className="text-4xl font-black tracking-tight">Farmer <span className="text-green-500">Profile</span></h1>
           <p className="text-gray-500">Manage your precision farming account and AI data.</p>
@@ -151,7 +170,7 @@ export default function ProfilePage() {
               <div className="flex flex-col sm:flex-row items-center gap-8">
                 <div {...getRootProps()} className="relative cursor-pointer group">
                   <input {...getInputProps()} />
-                  <img src={profileImage} alt="Profile" className="h-44 w-44 rounded-3xl object-cover border-4 border-green-500/20 shadow-2xl" />
+                  <img src={profileImage || ""} alt="Profile" className="h-44 w-44 rounded-3xl object-cover border-4 border-green-500/20 shadow-2xl" />
                   <div className="absolute inset-0 bg-green-500/40 rounded-3xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                     <EditIcon className="text-black" />
                   </div>
@@ -165,7 +184,7 @@ export default function ProfilePage() {
                         <Verified className="text-blue-400" fontSize="small" />
                       </div>
                       <p className="text-gray-400 font-medium mb-6">{formData.email}</p>
-                      
+
                       <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
                         <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 px-5 py-2.5 bg-green-500 text-black font-bold rounded-xl hover:scale-105 transition shadow-lg shadow-green-500/20">
                           <EditIcon fontSize="small" /> Edit Bio
@@ -177,15 +196,15 @@ export default function ProfilePage() {
                     </>
                   ) : (
                     <form onSubmit={handleEditSubmit} className="space-y-4">
-                      <input 
-                        type="text" 
-                        value={formData.name} 
+                      <input
+                        type="text"
+                        value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-black/40 border border-white/10 p-3 rounded-xl text-white outline-none focus:border-green-500 transition"
                       />
-                      <input 
-                        type="email" 
-                        value={formData.email} 
+                      <input
+                        type="email"
+                        value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-black/40 border border-white/10 p-3 rounded-xl text-white outline-none focus:border-green-500 transition"
                       />
@@ -250,9 +269,9 @@ export default function ProfilePage() {
       </motion.div>
 
       {/* Confirmation Dialog */}
-      <Dialog 
-        open={openDialog} 
-        onClose={() => setOpenDialog(false)} 
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
         PaperProps={{ sx: { bgcolor: "#020804", color: "white", borderRadius: "24px", border: "1px solid rgba(239,68,68,0.2)", p: 2 } }}
       >
         <DialogTitle className="font-bold">Erase All Farm Data?</DialogTitle>
@@ -263,8 +282,8 @@ export default function ProfilePage() {
         </DialogContent>
         <DialogActions sx={{ p: 3, gap: 2 }}>
           <Button onClick={() => setOpenDialog(false)} sx={{ color: "#94a3b8", fontWeight: "bold" }}>Cancel</Button>
-          <Button 
-            onClick={handleDeleteAccount} 
+          <Button
+            onClick={handleDeleteAccount}
             sx={{ bgcolor: "#ef4444", color: "white", fontWeight: "bold", px: 4, borderRadius: "12px", "&:hover": { bgcolor: "#b91c1c" } }}
           >
             Confirm Delete

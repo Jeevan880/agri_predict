@@ -8,14 +8,15 @@ import {
   useNavigate
 } from "react-router";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from "./redux/actions";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import ReduxProvider from "./redux/reduxProvider";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import IleanaChat from "./components/IleanaChat";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -55,7 +56,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.reducer.currentUser);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -74,7 +74,8 @@ export default function App() {
     return () => {
       document.body.removeChild(script);
     };
-  }, [dispatch]);
+
+  }, [dispatch, navigate]);
 
    return (
     <>
@@ -91,9 +92,10 @@ export default function App() {
         }}
       />
       <Outlet />
+      <IleanaChat />
     </>
   );
-  
+
 }
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -13,16 +13,23 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GppGoodIcon from "@mui/icons-material/GppGood";
 import ShutterSpeedIcon from "@mui/icons-material/ShutterSpeed";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import MapIcon from "@mui/icons-material/Map";
 import SensorsIcon from "@mui/icons-material/Sensors";
 import VerifiedIcon from "@mui/icons-material/Verified";
 
+interface RootState {
+  reducer: {
+    currentUser: {
+      name: string;
+    } | null;
+  };
+}
+
 export default function DashboardIndex() {
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.reducer.currentUser);
+  const user = useSelector((state: RootState) => state.reducer.currentUser);
   const navigate = useNavigate();
 
   // Mocked Ag-specific data for the UI demo
@@ -53,8 +60,8 @@ export default function DashboardIndex() {
       {/* --- HEADER --- */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
         <div>
-          <motion.h1 
-            initial={{ opacity: 0, x: -20 }} 
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="text-4xl font-black text-white tracking-tight"
           >
@@ -62,13 +69,13 @@ export default function DashboardIndex() {
           </motion.h1>
           <p className="text-gray-500 mt-1">Satellite sync active. Soil sensors reporting 100% uptime.</p>
         </div>
-        
+
         <div className="flex items-center gap-3 bg-green-500/10 border border-green-500/20 px-4 py-2 rounded-2xl">
-           <WbSunnyIcon className="text-yellow-500" />
-           <div>
-             <p className="text-sm font-bold text-white leading-none">28°C</p>
-             <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Clear Skies • Hyderabad</p>
-           </div>
+          <WbSunnyIcon className="text-yellow-500" />
+          <div>
+            <p className="text-sm font-bold text-white leading-none">28°C</p>
+            <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Clear Skies • Hyderabad</p>
+          </div>
         </div>
       </div>
 
@@ -147,7 +154,7 @@ export default function DashboardIndex() {
                   <p className="text-sm font-medium opacity-80">Your land carbon footprint is 24% lower than regional average.</p>
                 </div>
                 <div className="absolute top-0 right-0 opacity-10 -rotate-12 translate-x-4">
-                   <AgricultureIcon sx={{ fontSize: 180 }} />
+                  <AgricultureIcon sx={{ fontSize: 180 }} />
                 </div>
               </div>
             </div>
@@ -160,8 +167,8 @@ export default function DashboardIndex() {
 
 // --- SUBCOMPONENTS ---
 
-const StatCard = ({ title, value, icon, trend, color }) => (
-  <motion.div 
+const StatCard = ({ title, value, icon, trend, color }: { title: string; value: string | number; icon: React.ReactNode; trend: string; color: string }) => (
+  <motion.div
     whileHover={{ y: -5 }}
     className={`bg-gradient-to-br ${color} p-6 rounded-[2rem] border border-white/10 shadow-xl`}
   >
@@ -174,7 +181,7 @@ const StatCard = ({ title, value, icon, trend, color }) => (
   </motion.div>
 );
 
-const QuickAction = ({ title, icon, color, link }) => (
+const QuickAction = ({ title, icon, color, link }: { title: string; icon: React.ReactNode; color: string; link: string }) => (
   <Link to={link} className="group flex flex-col items-center text-center gap-3">
     <div className={`w-16 h-16 ${color} rounded-2xl flex items-center justify-center text-black shadow-lg group-hover:scale-110 transition-transform`}>
       {icon}
@@ -183,7 +190,7 @@ const QuickAction = ({ title, icon, color, link }) => (
   </Link>
 );
 
-const AnalysisItem = ({ data }) => (
+const AnalysisItem = ({ data }: { data: { id: number; field: string; crop: string; date: Date; status: string; score: number } }) => (
   <div className="bg-white/5 border border-white/10 p-5 rounded-3xl flex items-center justify-between hover:border-green-500/50 transition-colors group">
     <div className="flex items-center gap-5">
       <div className={`h-14 w-14 rounded-2xl flex items-center justify-center font-black text-xl ${data.score > 80 ? 'bg-green-500 text-black' : 'bg-red-500/20 text-red-500'}`}>

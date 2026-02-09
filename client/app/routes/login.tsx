@@ -3,15 +3,22 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router"; // or "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, type JwtPayload } from "jwt-decode";
+
+// Define custom JWT interface
+interface CustomJwtPayload extends JwtPayload {
+  name: string;
+  email: string;
+  picture: string;
+}
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
 // Icons
-import { 
-  Email, Lock, Visibility, VisibilityOff, 
-  Agriculture, Grass, ChevronLeft 
+import {
+  Email, Lock, Visibility, VisibilityOff,
+  Agriculture, Grass, ChevronLeft
 } from "@mui/icons-material";
 import { getUser } from "~/redux/actions";
 
@@ -24,15 +31,15 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     const userId = localStorage.getItem("userId");
-//     if (userId) {
-//       dispatch(getUser(userId));
-//       navigate("/dashboard");
-//     }
-//   }, [dispatch, navigate]);
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      dispatch(getUser(userId));
+      navigate("/dashboard");
+    }
+  }, [dispatch, navigate]);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -55,7 +62,7 @@ export default function Login() {
         dispatch(getUser(res?.data?.user?._id));
         navigate("/dashboard");
       }
-    } catch (err) {
+    } catch (err: any) {
       const msg = err?.response?.data?.message || "Login failed. Check your credentials.";
       setError(msg);
       toast.error(msg);
@@ -70,7 +77,7 @@ export default function Login() {
     console.log("Decoded JWT:", jwtDecode(credentialResponse.credential));
 
     try {
-      const googleCreds = jwtDecode(credentialResponse.credential);
+      const googleCreds = jwtDecode<CustomJwtPayload>(credentialResponse.credential);
       const res = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/user/googleauth`,
         {
@@ -95,15 +102,15 @@ export default function Login() {
         navigate(redirectPath);
         localStorage.removeItem("redirectPath");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       setError(
         error?.response?.data?.message ||
-          "Failed to login up. Please try again later.",
+        "Failed to login up. Please try again later.",
       );
       toast.error(
         error?.response?.data?.message ||
-          "Failed to login up. Please try again later.",
+        "Failed to login up. Please try again later.",
       );
     } finally {
       setLoading(false);
@@ -116,32 +123,32 @@ export default function Login() {
       <div className="absolute top-0 left-0 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-500/5 blur-[120px] rounded-full translate-x-1/2 translate-y-1/2" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-5xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl"
       >
-        
+
         {/* Left Side: Visual/Branding */}
         <div className="hidden md:flex md:w-5/12 bg-gradient-to-br from-green-600 to-green-900 p-12 flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
-             <img 
-               src="https://www.transparenttextures.com/patterns/leaf.png" 
-               alt="pattern" 
-               className="w-full h-full object-repeat"
-             />
+            <img
+              src="https://www.transparenttextures.com/patterns/leaf.png"
+              alt="pattern"
+              className="w-full h-full object-repeat"
+            />
           </div>
-          
+
           <div className="relative z-10">
             <Link to="/" className="flex items-center text-white/80 hover:text-white transition mb-12 group">
-              <ChevronLeft className="group-hover:-translate-x-1 transition-transform" /> 
+              <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
               <span className="text-sm font-bold uppercase tracking-widest">Back to site</span>
             </Link>
             <div className="flex items-center space-x-3 mb-6">
-               <div className="p-3 bg-white rounded-2xl shadow-lg text-green-700">
-                  <Agriculture fontSize="large" />
-               </div>
-               <h2 className="text-2xl font-black tracking-tighter text-white">AGRIPREDICT<span className="text-green-300">.AI</span></h2>
+              <div className="p-3 bg-white rounded-2xl shadow-lg text-green-700">
+                <Agriculture fontSize="large" />
+              </div>
+              <h2 className="text-2xl font-black tracking-tighter text-white">AGRIPREDICT<span className="text-green-300">.AI</span></h2>
             </div>
             <h1 className="text-4xl font-bold text-white leading-tight">
               Predicting the <br /> <span className="text-green-200 underline decoration-green-400/50">Next Harvest.</span>
@@ -203,7 +210,7 @@ export default function Login() {
                 <input type="checkbox" className="accent-green-500 rounded" />
                 <span>Remember me</span>
               </label>
-              <Link to="/forgot-password" size="small" className="text-green-500 font-bold hover:text-green-400">
+              <Link to="/forgot-password" className="text-green-500 font-bold hover:text-green-400">
                 Forgot Password?
               </Link>
             </div>
@@ -225,11 +232,11 @@ export default function Login() {
 
           <div className="flex justify-center">
             <div className="rounded-3xl overflow-hidden">
-                <GoogleLogin
+              <GoogleLogin
                 onSuccess={handleGoogleLogin}
                 onError={() => {
-                    setError("Google login failed.");
-                    toast.error("Google login failed.");
+                  setError("Google login failed.");
+                  toast.error("Google login failed.");
                 }}
                 width="100%"
                 theme="filled_blue"
@@ -237,9 +244,9 @@ export default function Login() {
                 shape="rectangular"
                 logo_alignment="left"
                 auto_select={true}
-                />
+              />
             </div>
-           </div>
+          </div>
 
           <p className="mt-8 text-center text-gray-500 text-sm">
             New to AgriPredict?{" "}

@@ -1,12 +1,12 @@
 import React from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
-  LinearScale, 
-  PointElement, 
+  LinearScale,
+  PointElement,
   LineElement,
   Title,
   Tooltip,
@@ -15,18 +15,18 @@ import {
 } from "chart.js";
 
 // Icons
-import { 
-  ArrowForward, Agriculture, WbSunny, WaterDrop, Science, 
-  Insights, LocalFlorist, VerifiedUser, Login, 
-  AccountCircle, Public, Sensors, Spoke 
+import {
+  ArrowForward, Agriculture, WbSunny, WaterDrop, Science,
+  Insights, LocalFlorist, VerifiedUser, Login,
+  AccountCircle, Public, Sensors, Spoke
 } from "@mui/icons-material";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 export function Welcome() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const chartData = {
+  const chartData: any = {
     labels: ["2021", "2022", "2023", "2024", "2025", "2026"],
     datasets: [{
       label: "Market Demand",
@@ -35,7 +35,7 @@ export function Welcome() {
       backgroundColor: "rgba(74, 222, 128, 0.1)",
       fill: true,
       tension: 0.4,
-    }], 
+    }],
   };
 
   return (
@@ -50,7 +50,7 @@ export function Welcome() {
           </div>
           <span className="text-xl font-black tracking-tighter text-white">AGRIPREDICT<span className="text-green-500">.AI</span></span>
         </div>
-        
+
         <div className="hidden lg:flex items-center space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-400">
           <a href="#analysis" className="hover:text-green-400 transition">Soil Analytics</a>
           <a href="#market" className="hover:text-green-400 transition">Market Hub</a>
@@ -73,11 +73,11 @@ export function Welcome() {
           <div className="lg:col-span-7 space-y-8 relative z-10">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
               <h1 className="text-5xl md:text-8xl font-black leading-[0.9] tracking-tight mb-6">
-                Cultivate <span className="text-green-500">Intelligence.</span><br /> 
+                Cultivate <span className="text-green-500">Intelligence.</span><br />
                 Harvest Wealth.
               </h1>
               <p className="text-lg md:text-xl text-gray-400 max-w-xl leading-relaxed">
-                The world's first AI agronomist that talks to your soil and listens to the global market. 
+                The world's first AI agronomist that talks to your soil and listens to the global market.
                 Get 98% accurate crop recommendations based on real-time data.
               </p>
             </motion.div>
@@ -103,7 +103,7 @@ export function Welcome() {
 
           {/* Weather & Prediction Floating Widget */}
           <div className="lg:col-span-5 relative">
-            <motion.div 
+            <motion.div
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
               className="bg-gradient-to-br from-green-900/40 to-black p-8 rounded-[2.5rem] border border-green-500/20 backdrop-blur-3xl shadow-2xl relative z-10"
             >
@@ -114,7 +114,7 @@ export function Welcome() {
                 </div>
                 <WbSunny className="text-yellow-400 text-5xl animate-pulse" />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="bg-white/5 p-4 rounded-2xl text-center">
                   <WaterDrop className="text-blue-400 mb-2" />
@@ -144,7 +144,7 @@ export function Welcome() {
             <h2 className="text-4xl font-bold">Smart Agricultural Core</h2>
             <p className="text-gray-500">Advanced AI modules integrated for precision farming.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard icon={<Spoke />} title="Neural Mapping" desc="Connects regional data to your specific land coordinates." />
             <FeatureCard icon={<Insights />} title="Yield Forecast" desc="Predicts harvest volume with 95% confidence intervals." />
@@ -166,7 +166,7 @@ export function Welcome() {
           <div className="space-y-6">
             <h2 className="text-5xl font-bold leading-tight">Don't just plant.<br />Plant for the <span className="text-green-500">Buyer.</span></h2>
             <p className="text-gray-400 text-lg">
-              Our AI connects to global supply chain data. We tell you what to grow based on what buyers are 
+              Our AI connects to global supply chain data. We tell you what to grow based on what buyers are
               pre-ordering in international markets.
             </p>
             <Link to="/market-trends" className="inline-flex items-center space-x-2 text-green-400 font-bold hover:underline">
@@ -214,7 +214,7 @@ export function Welcome() {
 }
 
 // Sub-components
-function FeatureCard({ icon, title, desc }) {
+function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <div className="p-8 bg-white/5 border border-white/5 rounded-3xl hover:border-green-500/50 transition-all hover:-translate-y-2">
       <div className="text-green-500 mb-4">{icon}</div>
@@ -224,7 +224,7 @@ function FeatureCard({ icon, title, desc }) {
   );
 }
 
-function Testimonial({ name, role, text }) {
+function Testimonial({ name, role, text }: { name: string; role: string; text: string }) {
   return (
     <div className="p-8 bg-black/40 border border-white/5 rounded-3xl text-left italic">
       <p className="text-gray-300 mb-6">"{text}"</p>
