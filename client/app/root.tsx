@@ -77,7 +77,7 @@ export default function App() {
 
   }, [dispatch, navigate]);
 
-   return (
+  return (
     <>
       <Toaster
         position="top-right"
