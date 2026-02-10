@@ -13,7 +13,14 @@ export default [
                 route("market", "routes/dashboard/market-trends.tsx"),
 
         ]),
+        route("dashboard", "routes/dashboard/layout.tsx", [
+                index("routes/dashboard/index.tsx"),
+                route("profile", "routes/dashboard/profile.tsx"),
+                route("recommend", "routes/dashboard/recommend.tsx"),
+                route("market", "routes/dashboard/market-trends.tsx"),
+        ]),
 
 
 ] satisfies RouteConfig;
+
 

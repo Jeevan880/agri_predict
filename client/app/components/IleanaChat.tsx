@@ -118,7 +118,7 @@ export default function IleanaChat() {
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="fixed bottom-24 right-6 w-[90vw] md:w-[400px] h-[500px] bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-green-500/20 flex flex-col z-[9999] overflow-hidden font-sans"
+                        className="fixed bottom-24 right-6 w-[90vw] md:w-[600px] h-[600px] bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-green-500/20 flex flex-col z-[9999] overflow-hidden font-sans"
                     >
                         {/* Header */}
                         <div className="p-4 bg-gradient-to-r from-green-600 to-emerald-800 text-white flex justify-between items-center">

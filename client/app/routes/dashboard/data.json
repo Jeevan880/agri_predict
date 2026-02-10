@@ -1,0 +1,162 @@
+{
+  "state": "Telangana",
+  "note": "All 33 districts included. Values tuned for realistic predictions: rice/maize in north, cotton/maize in east, pigeonpea/groundnut/maize in south. Kharif season should push rice/maize/cotton strongly. Test especially Jadcherla, Khammam Rural, Adilabad Rural, Warangal.",
+  "districts": {
+    "Adilabad": {
+      "mandals": [
+        {"name": "Adilabad Rural", "N": 88, "P": 45, "K": 40, "temperature": 28.0, "humidity": 79, "ph": 6.6, "rainfall": 198},
+        {"name": "Boath", "N": 90, "P": 46, "K": 42, "temperature": 28.0, "humidity": 80, "ph": 6.5, "rainfall": 200},
+        {"name": "Ichoda", "N": 85, "P": 43, "K": 38, "temperature": 28.0, "humidity": 78, "ph": 6.7, "rainfall": 192},
+        {"name": "Neradigonda", "N": 92, "P": 47, "K": 43, "temperature": 28.0, "humidity": 81, "ph": 6.5, "rainfall": 202},
+        {"name": "Tamsi", "N": 87, "P": 44, "K": 39, "temperature": 28.0, "humidity": 79, "ph": 6.6, "rainfall": 195},
+        {"name": "Bela", "N": 89, "P": 45, "K": 41, "temperature": 28.0, "humidity": 79, "ph": 6.6, "rainfall": 196}
+      ]
+    },
+    "Komaram Bheem Asifabad": {
+      "mandals": [
+        {"name": "Asifabad", "N": 89, "P": 46, "K": 41, "temperature": 28.2, "humidity": 80, "ph": 6.6, "rainfall": 205},
+        {"name": "Kaghaznagar", "N": 91, "P": 47, "K": 42, "temperature": 28.2, "humidity": 81, "ph": 6.5, "rainfall": 208},
+        {"name": "Bejjur", "N": 87, "P": 44, "K": 39, "temperature": 28.2, "humidity": 79, "ph": 6.7, "rainfall": 200},
+        {"name": "Jainoor", "N": 88, "P": 45, "K": 40, "temperature": 28.2, "humidity": 80, "ph": 6.6, "rainfall": 203}
+      ]
+    },
+    "Mancherial": {
+      "mandals": [
+        {"name": "Mancherial", "N": 93, "P": 49, "K": 44, "temperature": 28.5, "humidity": 76, "ph": 6.8, "rainfall": 175},
+        {"name": "Bellampalle", "N": 91, "P": 47, "K": 42, "temperature": 28.5, "humidity": 75, "ph": 6.9, "rainfall": 172},
+        {"name": "Chennur", "N": 89, "P": 45, "K": 40, "temperature": 28.5, "humidity": 74, "ph": 7.0, "rainfall": 170},
+        {"name": "Luxettipet", "N": 90, "P": 46, "K": 41, "temperature": 28.5, "humidity": 75, "ph": 6.9, "rainfall": 173}
+      ]
+    },
+    "Nirmal": {
+      "mandals": [
+        {"name": "Nirmal", "N": 94, "P": 51, "K": 44, "temperature": 28.3, "humidity": 71, "ph": 7.2, "rainfall": 168},
+        {"name": "Dilawarpur", "N": 92, "P": 49, "K": 42, "temperature": 28.3, "humidity": 70, "ph": 7.3, "rainfall": 165},
+        {"name": "Laxmanchanda", "N": 95, "P": 52, "K": 45, "temperature": 28.3, "humidity": 72, "ph": 7.2, "rainfall": 170},
+        {"name": "Sarangapur", "N": 93, "P": 50, "K": 43, "temperature": 28.3, "humidity": 71, "ph": 7.3, "rainfall": 167}
+      ]
+    },
+    "Nizamabad": {
+      "mandals": [
+        {"name": "Nizamabad North", "N": 92, "P": 48, "K": 43, "temperature": 28.0, "humidity": 79, "ph": 6.7, "rainfall": 195},
+        {"name": "Armoor", "N": 90, "P": 46, "K": 41, "temperature": 28.0, "humidity": 78, "ph": 6.8, "rainfall": 192},
+        {"name": "Bodhan", "N": 95, "P": 51, "K": 46, "temperature": 28.0, "humidity": 80, "ph": 6.6, "rainfall": 198},
+        {"name": "Makloor", "N": 91, "P": 47, "K": 42, "temperature": 28.0, "humidity": 79, "ph": 6.7, "rainfall": 194},
+        {"name": "Jakranpally", "N": 93, "P": 49, "K": 44, "temperature": 28.0, "humidity": 79, "ph": 6.7, "rainfall": 196}
+      ]
+    },
+    "Jagtial": {
+      "mandals": [
+        {"name": "Jagtial Rural", "N": 84, "P": 49, "K": 39, "temperature": 28.3, "humidity": 73, "ph": 7.0, "rainfall": 168},
+        {"name": "Korutla", "N": 82, "P": 47, "K": 37, "temperature": 28.3, "humidity": 72, "ph": 7.1, "rainfall": 165},
+        {"name": "Mallial", "N": 85, "P": 50, "K": 40, "temperature": 28.3, "humidity": 74, "ph": 7.0, "rainfall": 170},
+        {"name": "Pegadapalli", "N": 83, "P": 48, "K": 38, "temperature": 28.3, "humidity": 73, "ph": 7.1, "rainfall": 167}
+      ]
+    },
+    "Peddapalli": {
+      "mandals": [
+        {"name": "Peddapalle", "N": 86, "P": 51, "K": 41, "temperature": 28.1, "humidity": 74, "ph": 7.0, "rainfall": 172},
+        {"name": "Sultanabad", "N": 84, "P": 49, "K": 39, "temperature": 28.1, "humidity": 73, "ph": 7.1, "rainfall": 170},
+        {"name": "Odela", "N": 87, "P": 52, "K": 42, "temperature": 28.1, "humidity": 75, "ph": 7.0, "rainfall": 175},
+        {"name": "Julapalle", "N": 85, "P": 50, "K": 40, "temperature": 28.1, "humidity": 74, "ph": 7.1, "rainfall": 172}
+      ]
+    },
+    "Rajanna Sircilla": {
+      "mandals": [
+        {"name": "Sircilla", "N": 88, "P": 50, "K": 40, "temperature": 28.0, "humidity": 73, "ph": 7.2, "rainfall": 165},
+        {"name": "Gambhiraopet", "N": 86, "P": 48, "K": 38, "temperature": 28.0, "humidity": 72, "ph": 7.3, "rainfall": 162}
+      ]
+    },
+    "Karimnagar": {
+      "mandals": [
+        {"name": "Karimnagar Rural", "N": 85, "P": 50, "K": 40, "temperature": 28.2, "humidity": 74, "ph": 6.9, "rainfall": 170},
+        {"name": "Husnabad", "N": 82, "P": 48, "K": 38, "temperature": 28.2, "humidity": 73, "ph": 7.0, "rainfall": 165},
+        {"name": "Choppadandi", "N": 86, "P": 51, "K": 41, "temperature": 28.2, "humidity": 75, "ph": 6.9, "rainfall": 172},
+        {"name": "Gangadhara", "N": 84, "P": 49, "K": 39, "temperature": 28.2, "humidity": 74, "ph": 7.0, "rainfall": 168}
+      ]
+    },
+    "Khammam": {
+      "mandals": [
+        {"name": "Khammam Rural", "N": 120, "P": 45, "K": 18, "temperature": 28.8, "humidity": 80, "ph": 7.4, "rainfall": 88},
+        {"name": "Madhira", "N": 118, "P": 44, "K": 17, "temperature": 28.8, "humidity": 79, "ph": 7.5, "rainfall": 85},
+        {"name": "Kusumanchi", "N": 122, "P": 46, "K": 19, "temperature": 28.8, "humidity": 81, "ph": 7.4, "rainfall": 90},
+        {"name": "Bonakal", "N": 115, "P": 43, "K": 16, "temperature": 28.8, "humidity": 78, "ph": 7.5, "rainfall": 82},
+        {"name": "Chinthakani", "N": 119, "P": 45, "K": 18, "temperature": 28.8, "humidity": 80, "ph": 7.4, "rainfall": 87}
+      ]
+    },
+    "Warangal": {
+      "mandals": [
+        {"name": "Warangal", "N": 122, "P": 47, "K": 19, "temperature": 28.5, "humidity": 81, "ph": 7.3, "rainfall": 85},
+        {"name": "Narsampet", "N": 120, "P": 46, "K": 18, "temperature": 28.5, "humidity": 80, "ph": 7.4, "rainfall": 83}
+      ]
+    },
+    "Hanumakonda": {
+      "mandals": [
+        {"name": "Hanamkonda", "N": 120, "P": 46, "K": 18, "temperature": 28.4, "humidity": 80, "ph": 7.4, "rainfall": 82}
+      ]
+    },
+    "Mahabubabad": {
+      "mandals": [
+        {"name": "Mahabubabad", "N": 118, "P": 45, "K": 17, "temperature": 28.6, "humidity": 79, "ph": 7.5, "rainfall": 80},
+        {"name": "Kesamudram", "N": 116, "P": 44, "K": 16, "temperature": 28.6, "humidity": 78, "ph": 7.6, "rainfall": 78}
+      ]
+    },
+    "Nalgonda": {
+      "mandals": [
+        {"name": "Nalgonda", "N": 107, "P": 57, "K": 45, "temperature": 29.2, "humidity": 59, "ph": 7.9, "rainfall": 108},
+        {"name": "Miryalaguda", "N": 105, "P": 55, "K": 43, "temperature": 29.2, "humidity": 58, "ph": 8.0, "rainfall": 105},
+        {"name": "Huzurnagar", "N": 109, "P": 58, "K": 46, "temperature": 29.2, "humidity": 60, "ph": 7.9, "rainfall": 110}
+      ]
+    },
+    "Mahabubnagar": {
+      "mandals": [
+        {"name": "Mahabubnagar Rural", "N": 108, "P": 58, "K": 46, "temperature": 29.1, "humidity": 56, "ph": 8.1, "rainfall": 98},
+        {"name": "Jadcherla", "N": 105, "P": 56, "K": 44, "temperature": 29.1, "humidity": 54, "ph": 8.2, "rainfall": 92},
+        {"name": "Addakal", "N": 110, "P": 59, "K": 48, "temperature": 29.1, "humidity": 57, "ph": 8.0, "rainfall": 100},
+        {"name": "Bhoothpur", "N": 106, "P": 57, "K": 45, "temperature": 29.1, "humidity": 55, "ph": 8.1, "rainfall": 95},
+        {"name": "Hanwada", "N": 107, "P": 58, "K": 46, "temperature": 29.1, "humidity": 55, "ph": 8.1, "rainfall": 96},
+        {"name": "Koilkonda", "N": 104, "P": 55, "K": 43, "temperature": 29.1, "humidity": 54, "ph": 8.2, "rainfall": 90}
+      ]
+    },
+    "Suryapet": {
+      "mandals": [
+        {"name": "Suryapet", "N": 96, "P": 50, "K": 46, "temperature": 29.0, "humidity": 63, "ph": 7.6, "rainfall": 140},
+        {"name": "Kodad", "N": 94, "P": 48, "K": 44, "temperature": 29.0, "humidity": 62, "ph": 7.7, "rainfall": 138}
+      ]
+    },
+    "Kamareddy": {
+      "mandals": [
+        {"name": "Kamareddy", "N": 90, "P": 51, "K": 43, "temperature": 28.2, "humidity": 73, "ph": 7.2, "rainfall": 172},
+        {"name": "Banswada", "N": 87, "P": 49, "K": 41, "temperature": 28.2, "humidity": 72, "ph": 7.3, "rainfall": 170}
+      ]
+    },
+    "Ranga Reddy": {
+      "mandals": [
+        {"name": "Shamshabad", "N": 94, "P": 53, "K": 45, "temperature": 28.8, "humidity": 66, "ph": 7.5, "rainfall": 135},
+        {"name": "Ibrahimpatnam", "N": 92, "P": 51, "K": 43, "temperature": 28.8, "humidity": 65, "ph": 7.6, "rainfall": 132}
+      ]
+    },
+    "Sangareddy": {
+      "mandals": [
+        {"name": "Sangareddy", "N": 92, "P": 52, "K": 44, "temperature": 28.5, "humidity": 67, "ph": 7.6, "rainfall": 130},
+        {"name": "Narsapur", "N": 110, "P": 46, "K": 49, "temperature": 28.5, "humidity": 66, "ph": 7.5, "rainfall": 155}
+      ]
+    },
+    "Vikarabad": {
+      "mandals": [
+        {"name": "Vikarabad", "N": 112, "P": 59, "K": 51, "temperature": 29.0, "humidity": 57, "ph": 8.0, "rainfall": 100},
+        {"name": "Tandur", "N": 110, "P": 57, "K": 49, "temperature": 29.0, "humidity": 56, "ph": 8.1, "rainfall": 98}
+      ]
+    },
+    "Narayanpet": {
+      "mandals": [
+        {"name": "Narayanpet", "N": 114, "P": 61, "K": 53, "temperature": 29.3, "humidity": 55, "ph": 8.1, "rainfall": 92}
+      ]
+    },
+    "Jogulamba Gadwal": {
+      "mandals": [
+        {"name": "Gadwal", "N": 110, "P": 56, "K": 49, "temperature": 29.5, "humidity": 54, "ph": 8.2, "rainfall": 88}
+      ]
+    }
+  }
+}

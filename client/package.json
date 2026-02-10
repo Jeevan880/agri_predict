@@ -17,6 +17,7 @@
     "@react-router/node": "7.12.0",
     "@react-router/serve": "7.12.0",
     "@reduxjs/toolkit": "^2.11.2",
+    "@vis.gl/react-google-maps": "^1.7.1",
     "@vnedyalk0v/react19-simple-maps": "^2.0.2",
     "axios": "^1.13.5",
     "chart.js": "^4.5.1",
